@@ -48,7 +48,13 @@ By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` par
 ![Robots](doc/img/robot_tableObjects.png)
 Close the window tab to proceed
 
-### The part correspondence handle transferred to the target scene 
+### Input semantic knowledge
+| Original Image | Annotated Image |
+|:--------------:|:--------------:|
+| ![Original Image](src/UCL_AffCorrs/affordance_database/hammer_handle/prototype.png) | ![Annotated Image](src/UCL_AffCorrs/affordance_database/hammer_handle/annotation.png) |
+| Support | Query |
+
+### The part correspondence handle transferred to the target scene (for robot to know where to grasp)
 ![Robots](doc/img/find_part_correspondence.png)
 Close the window tab to proceed
 
