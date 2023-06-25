@@ -47,7 +47,7 @@ To run, simply execute `python3 examples/run_example_pick_handle.py`. This will 
 
 By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` parameter to simulate it.
 
-### The robot and table objects loaded
+### Load robot and table objects
 ![Robots](doc/img/robot_tableObjects.png)
 Close the window tab to proceed
 
@@ -60,6 +60,6 @@ Close the window tab to proceed
 ![Robots](doc/img/find_part_correspondence.png)
 Close the window tab to proceed
 
-### The robot grasps the target (with reinforcement policy control)
+### The caging gripper proceeds to grasp the target (with reinforcement policy control)
 ![Robots](doc/img/grasping.png)
 
