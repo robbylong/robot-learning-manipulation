@@ -1,11 +1,14 @@
 # PyBullet Environment containing RPL robots
 
+This repository contains code for AffCorrs-gripper model, an autonomous robotic manipulation system integrating a novel visual semantic model in paper "One-Shot Transfer of Affordance Regions? AffCorrs!" and a novel robotic gripper in paper "A  Caging  Inspired  Gripper  using  Flexible Fingers  and  a  Movable Palm" along with reinforcement learning.
+
+
 ## Setup
 
 The following code installs pybullet and clones this repository along with the submodule links needed for the RPL robots in this repo. The setup has been tested on ubuntu 20.04 and python 3.8.
 
 ```bash
-git clone --recurse-submodules https://github.com/dennisushi/RPL-affcorrs-gripper.git
+git clone --recurse-submodules https://github.com/RPL-CS-UCL/RPL-affcorrs-gripper.git
 cd RPL-affcorrs-gripper
 pip3 install -e .
 ```
@@ -49,10 +52,9 @@ By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` par
 Close the window tab to proceed
 
 ### Input semantic knowledge
-| Original Image | Annotated Image |
+| Support Image | Query Image |
 |:--------------:|:--------------:|
 | ![Original Image](doc/img/prototype.png) | ![Annotated Image](doc/img/annotation.png) |
-| Support | Query |
 
 ### The part correspondence handle transferred to the target scene (for robot to know where to grasp)
 ![Robots](doc/img/find_part_correspondence.png)
