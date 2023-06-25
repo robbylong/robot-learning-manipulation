@@ -1,4 +1,4 @@
-# PyBullet Environment containing RPL robots
+# AffCorrs Caging gripper integration 
 
 This repository contains code for AffCorrs-gripper model, an autonomous robotic manipulation system integrating a novel visual semantic model in paper "One-Shot Transfer of Affordance Regions? AffCorrs!" and a novel robotic gripper in paper "A  Caging  Inspired  Gripper  using  Flexible Fingers  and  a  Movable Palm" along with reinforcement learning.
 
@@ -47,7 +47,7 @@ To run, simply execute `python3 examples/run_example_pick_handle.py`. This will 
 
 By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` parameter to simulate it.
 
-### Load robot and table objects
+### Load robot and table objects	
 ![Robots](doc/img/robot_tableObjects.png)
 Close the window tab to proceed
 
