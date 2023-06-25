@@ -1,0 +1,413 @@
+<sdf version='1.7'>
+  <model name='gripper'>
+    <joint name='world_to_base' type='fixed'>
+      <pose relative_to='__model__'>0 0 1 3.14159 -0 0</pose>
+      <parent>world</parent>
+      <child>gripper_base_link</child>
+    </joint>
+    <link name='gripper_base_link'>
+      <pose relative_to='world_to_base'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0.025 3.14159 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>0.00995</ixx>
+          <ixy>2.73e-06</ixy>
+          <ixz>-1.432e-05</ixz>
+          <iyy>0.01008</iyy>
+          <iyz>0.00012138</iyz>
+          <izz>0.00513</izz>
+        </inertia>
+      </inertial>
+      <collision name='gripper_base_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.1</length>
+            <radius>0.03</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='gripper_base_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/main body visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_1_prismatic_joint' type='prismatic'>
+      <pose relative_to='gripper_base_link'>0 0 0 -0 -1.5708 0</pose>
+      <parent>gripper_base_link</parent>
+      <child>finger_1_intermediate</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0.049</lower>
+          <upper>0.134</upper>
+          <effort>40</effort>
+          <velocity>0.015</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_1_intermediate'>
+      <pose relative_to='finger_1_prismatic_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>5.559e-05</ixx>
+          <ixy>-4.723e-05</ixy>
+          <ixz>1.16e-06</ixz>
+          <iyy>0.00014636</iyy>
+          <iyz>1e-06</iyz>
+          <izz>0.00015418</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_1_intermediate_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_1_intermediate_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_1_revolute_joint' type='revolute'>
+      <pose relative_to='finger_1_intermediate'>0 0 0 0 -0 0</pose>
+      <parent>finger_1_intermediate</parent>
+      <child>finger_1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.7</lower>
+          <upper>0.7</upper>
+          <effort>40</effort>
+          <velocity>0.1</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_1'>
+      <pose relative_to='finger_1_revolute_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.00028344</ixx>
+          <ixy>-0.00056723</ixy>
+          <ixz>-6.59e-06</ixz>
+          <iyy>0.00138</iyy>
+          <iyz>2.4e-06</iyz>
+          <izz>0.0016</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_1_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_1_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_2_prismatic_joint' type='prismatic'>
+      <pose relative_to='gripper_base_link'>0 0 0 -2.0944 -1.5708 0</pose>
+      <parent>gripper_base_link</parent>
+      <child>finger_2_intermediate</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0.049</lower>
+          <upper>0.134</upper>
+          <effort>40</effort>
+          <velocity>0.015</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_2_intermediate'>
+      <pose relative_to='finger_2_prismatic_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>5.559e-05</ixx>
+          <ixy>-4.723e-05</ixy>
+          <ixz>1.16e-06</ixz>
+          <iyy>0.00014636</iyy>
+          <iyz>1e-06</iyz>
+          <izz>0.00015418</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_2_intermediate_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_2_intermediate_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_2_revolute_joint' type='revolute'>
+      <pose relative_to='finger_2_intermediate'>0 0 0 0 -0 0</pose>
+      <parent>finger_2_intermediate</parent>
+      <child>finger_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.7</lower>
+          <upper>0.7</upper>
+          <effort>40</effort>
+          <velocity>0.1</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_2'>
+      <pose relative_to='finger_2_revolute_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.00028344</ixx>
+          <ixy>-0.00056723</ixy>
+          <ixz>-6.59e-06</ixz>
+          <iyy>0.00138</iyy>
+          <iyz>2.4e-06</iyz>
+          <izz>0.0016</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_2_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_2_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_3_prismatic_joint' type='prismatic'>
+      <pose relative_to='gripper_base_link'>0 0 0 2.0944 -1.5708 0</pose>
+      <parent>gripper_base_link</parent>
+      <child>finger_3_intermediate</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0.049</lower>
+          <upper>0.134</upper>
+          <effort>40</effort>
+          <velocity>0.015</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_3_intermediate'>
+      <pose relative_to='finger_3_prismatic_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>5.559e-05</ixx>
+          <ixy>-4.723e-05</ixy>
+          <ixz>1.16e-06</ixz>
+          <iyy>0.00014636</iyy>
+          <iyz>1e-06</iyz>
+          <izz>0.00015418</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_3_intermediate_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_3_intermediate_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/nut visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='finger_3_revolute_joint' type='revolute'>
+      <pose relative_to='finger_3_intermediate'>0 0 0 0 -0 0</pose>
+      <parent>finger_3_intermediate</parent>
+      <child>finger_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.7</lower>
+          <upper>0.7</upper>
+          <effort>40</effort>
+          <velocity>0.1</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='finger_3'>
+      <pose relative_to='finger_3_revolute_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.00028344</ixx>
+          <ixy>-0.00056723</ixy>
+          <ixz>-6.59e-06</ixz>
+          <iyy>0.00138</iyy>
+          <iyz>2.4e-06</iyz>
+          <izz>0.0016</izz>
+        </inertia>
+      </inertial>
+      <collision name='finger_3_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='finger_3_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/finger platform visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='palm_prismatic_joint' type='prismatic'>
+      <pose relative_to='gripper_base_link'>0 0 0 0 -1.5708 0</pose>
+      <parent>gripper_base_link</parent>
+      <child>palm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0.165</upper>
+          <effort>40</effort>
+          <velocity>0.036</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='palm'>
+      <pose relative_to='palm_prismatic_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='palm_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/palm collision.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='palm_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://gripper_description/meshes/palm visual.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

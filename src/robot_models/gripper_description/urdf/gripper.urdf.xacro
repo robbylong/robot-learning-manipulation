@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot name="gripper" xmlns:xacro="http://wiki.ros.org/xacro">
+
+	<!-- define relative movement to get to gripper_description/ -->
+	<xacro:property name="path_to_top" value=".."/>
+
+	<xacro:include filename="${path_to_top}/xacro/gripper.xacro"/>
+	<xacro:add_gripper path_to_top="${path_to_top}"/>
+	
+	<!-- attach gripper to the ground for gazebo -->
+	<link name="world"/>
+	<joint name="world_to_base" type="fixed">
+		<origin xyz="0 0 1" rpy="${pi} 0 0"/>
+		<parent link="world"/>
+		<child link="gripper_base_link"/>
+	</joint>
+		
+</robot>

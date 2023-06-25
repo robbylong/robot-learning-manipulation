@@ -1,0 +1,34 @@
+model {
+  file: "model.sdf"
+}
+name: "Cole_Hardware_Antislip_Surfacing_Material_White"
+description: "Cole Hardware Antislip Surfacing Material, White"
+version: 1
+authors {
+  name: "Google"
+  email: "scanned-objects@google.com"
+}
+legal {
+  copyright: "Copyright 2020 Google LLC."
+  license: "Creative Commons Attribution 4.0 International"
+}
+annotations {
+  key: "brand"
+  value: "Cole Hardware"
+}
+annotations {
+  key: "gtin"
+  value: "00051131703339"
+}
+annotations {
+  key: "sku"
+  value: "00051131703339"
+}
+compatibilities {
+  name: "Gazebo"
+  version {
+    major: 11
+  }
+}
+categories {
+}

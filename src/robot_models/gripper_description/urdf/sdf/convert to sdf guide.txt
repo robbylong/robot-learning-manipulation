@@ -1,0 +1,13 @@
+To update generate a urdf using xacro from the terminal write:
+
+$ xacro example.xacro > example.urdf
+
+---
+
+To generate an sdf from a urdf in the terminal write:
+
+$ gz sdf -p example.urdf > example.sdf
+
+---
+
+Therefore, note that the files in this folder may be out of date!

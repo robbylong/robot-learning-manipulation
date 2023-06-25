@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+
+# use this script to access xacro in python3
+
+import xacro
+xacro.main()

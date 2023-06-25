@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot name="panda_and_gripper" xmlns:xacro="http://wiki.ros.org/xacro">
+
+	<!-- define relative movement to get to gripper_description/ -->
+	<xacro:property name="path_to_top" value=".."/>
+
+	<!-- Load the macros for building the gripper and the panda -->
+	<xacro:include filename="${path_to_top}/xacro/gripper.xacro"/>
+	<xacro:include filename="${path_to_top}/xacro/panda.xacro"/>
+	
+	<!-- add both the panda and the gripper -->
+	<xacro:add_panda path_to_top="${path_to_top}"/>
+	<xacro:add_gripper path_to_top="${path_to_top}"/>
+	
+	<!-- connect the panda to the ground -->
+	<link name="world"/>
+	<joint name="world_to_base" type="fixed">
+	  <origin xyz="0 0 0" rpy="0 0 0"/>
+	  <parent link="world"/>
+	  <child link="panda_link0"/>
+	</joint>
+	
+	<!-- connect the gripper to the panda -->
+	<!-- TODO verify these values -->
+  <joint name="panda_to_eef_base_joint" type="fixed">
+    <origin xyz="0 0 0.25" rpy="0 0 ${-pi/4}" />
+    <parent link="panda_link7"/>
+    <child link="gripper_base_link"/>
+  </joint>
+
+	<gazebo>
+		<plugin name="reset_joints_plugin" filename="libreset_joints_plugin.so"/>
+	</gazebo>
+	
+</robot>
