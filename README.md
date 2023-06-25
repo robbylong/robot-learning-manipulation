@@ -60,14 +60,6 @@ Close the window tab to proceed
 ![Robots](doc/img/find_part_correspondence.png)
 Close the window tab to proceed
 
-### The full point cloud of the target scene 
-![Robots](doc/img/full_point_cloud.png)
-Close the window tab to proceed
-
-### The part correspondence of the point cloud (handle) 
-![Robots](doc/img/part_point_cloud.png)
-Close the window tab to proceed
-
 ### The robot grasps the target (with reinforcement policy control)
 ![Robots](doc/img/grasping.png)
 
