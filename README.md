@@ -56,7 +56,7 @@ Close the window tab to proceed
 |:--------------:|:--------------:|
 | ![Original Image](doc/img/prototype.png) | ![Annotated Image](doc/img/annotation.png) |
 
-### The part correspondence handle transferred to the target scene (for robot to know where to grasp)
+### Transfer the semantic knowledge to the target scene
 ![Robots](doc/img/find_part_correspondence.png)
 Close the window tab to proceed
 
