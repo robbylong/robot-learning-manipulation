@@ -43,7 +43,7 @@ python3 -c "from rpl_pybullet_sample_env.pybullet_robots.arms.panda import RPL_P
 
 ## Running 
 
-To run, simply execute `python3 examples/run_example_pick_handle.py`. This will spawn the RPL panda robot with custom gripper on a table. You can move the camera in the simulation by holding `CNTRL` and dragging with the mouse. The model should be loaded in seconds even using CPU.
+To run, simply execute `python3 examples/run_example_pick_handle.py`. This will spawn the RPL panda robot with the caging gripper on a table. You can move the camera in the simulation by holding `CNTRL` and dragging with the mouse. The model should be loaded in seconds even using CPU.
 
 By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` parameter to simulate it.
 
