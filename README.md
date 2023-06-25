@@ -51,7 +51,7 @@ Close the window tab to proceed
 ### Input semantic knowledge
 | Original Image | Annotated Image |
 |:--------------:|:--------------:|
-| ![Original Image](src/UCL_AffCorrs/affordance_database/hammer_handle/prototype.png) | ![Annotated Image](src/UCL_AffCorrs/affordance_database/hammer_handle/annotation.png) |
+| ![Original Image](doc/img/prototype.png) | ![Annotated Image](doc/img/annotation.png) |
 | Support | Query |
 
 ### The part correspondence handle transferred to the target scene (for robot to know where to grasp)
