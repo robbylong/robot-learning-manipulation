@@ -38,6 +38,10 @@ from rpl_pybullet_sample_env.pybullet_robots.arms.panda import RPL_Panda, PyBull
 
 #import camera and object
 from pb_camera_object import Object, SDFObject, CameraObject
+
+# User-defined constants
+SUPPORT_DIR = "../src/UCL_AffCorrs/affordance_database/hammer_handle/"
+
 # Most simulations need the ground plane to be added.
 # and gravity pointing down at Z-axis
 p.setAdditionalSearchPath(pd.getDataPath()) 
@@ -464,7 +468,7 @@ rgb, depth_buffer_tiny, depth_tiny, sem = camera.capture()
 rgb = rgb[:,:,:3]
 cv2.imwrite('rgb_image.jpg', cv2.cvtColor(rgb, cv2.COLOR_RGBA2BGR))
 affcor = ShowPartCorrespondence()
-affcor.run_result(rgb)
+affcor.run_result(rgb,SUPPORT_DIR)
 # print(rgb/255)
 # print(rgb.shape)
 pc = camera.get_point_cloud(depth_buffer_tiny)

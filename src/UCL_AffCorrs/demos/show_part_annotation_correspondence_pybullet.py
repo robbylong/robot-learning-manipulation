@@ -19,7 +19,7 @@ from UCL_AffCorrs.models.aff_corrs import AffCorrs_V1
 # SUPPORT_DIR = "../affordance_database/usb/"
 # TARGET_IMAGE_PATH = "./images/demo_affordance/eth.jpg"
 
-SUPPORT_DIR = "../src/UCL_AffCorrs/affordance_database/hammer_handle/"
+# SUPPORT_DIR = "../src/UCL_AffCorrs/affordance_database/hammer_handle/"
 TARGET_IMAGE_PATH = "../src/UCL_AffCorrs/demos/images/demo_parts/basketball.jpeg"
 
 
@@ -70,7 +70,7 @@ class ShowPartCorrespondence():
         ax[1].imshow(corr_img)
         plt.show()
 
-    def run_result(self,origin_rgb):
+    def run_result(self,origin_rgb,SUPPORT_DIR):
         with torch.no_grad():
             model = AffCorrs_V1(args)
 
