@@ -1,0 +1,38 @@
+model {
+  file: "model.sdf"
+}
+name: "GoPro_HERO3_Composite_Cable"
+description: "GoPro HERO3 Composite Cable\nConnect your HERO3 camera to your TV with this composite cable (Mini USB to RCA) for standard definition preview + playback of your GoPro videos and photos."
+version: 1
+authors {
+  name: "Google"
+  email: "scanned-objects@google.com"
+}
+legal {
+  copyright: "Copyright 2020 Google LLC."
+  license: "Creative Commons Attribution 4.0 International"
+}
+annotations {
+  key: "brand"
+  value: "GoPro"
+}
+annotations {
+  key: "gtin"
+  value: "818279010176"
+}
+annotations {
+  key: "mpn"
+  value: "acmps-301"
+}
+annotations {
+  key: "sku"
+  value: "818279010176"
+}
+compatibilities {
+  name: "Gazebo"
+  version {
+    major: 11
+  }
+}
+categories {
+}

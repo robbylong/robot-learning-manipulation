@@ -510,10 +510,35 @@ class PandaWithCustomGripper(RPL_Panda):
     
     def move_to_above(self, timestep, obj_x,obj_y, obj_z):
         t = timestep
-
+        #for the handle
+        # pos = [self.init_pos[0] + (obj_x-self.init_pos[0])*t, 
+        # self.init_pos[1] + 0.4 + (obj_y-(self.init_pos[1]+0.4))*t, 
+        # self.init_pos[2] + 0.7 + (obj_z + 0.300 -(self.init_pos[2]+0.7))*t]
         pos = [self.init_pos[0] + (obj_x-self.init_pos[0])*t, 
         self.init_pos[1] + 0.4 + (obj_y-(self.init_pos[1]+0.4))*t, 
-        self.init_pos[2] + 0.7 + (obj_z + 0.300 -(self.init_pos[2]+0.7))*t]
+        self.init_pos[2] + 0.7 - 0.15]
+        orn = p.getQuaternionFromEuler([0,0,0])
+        jointPoses = p.calculateInverseKinematics(self.id, self.ee_index, pos, orn, 
+                                            self.arm_ll, self.arm_ul, self.joint_range , 
+                                            self.home_joint_pos, maxNumIterations=5)
+        jointPoses = np.asarray(jointPoses)
+        for i in range(self.arm_dof+self.ee_dof): # the first 7 joints correspond to the arm joints
+            p.setJointMotorControl2(self.id, self.joint_ids[i], 
+                                p.POSITION_CONTROL, jointPoses[i], 
+                                force=5 * 240.)
+        
+        self.grip_pris = p.getJointState(self.id, 10)[0]
+        self.grip_rot = p.getJointState(self.id, 11)[0]
+        self.grip_palm = p.getJointState(self.id, 34)[0]
+        
+        pass
+
+    def move_to_object(self, timestep, obj_x,obj_y, obj_z):
+        t = timestep
+
+        pos = [obj_x, 
+        obj_y, 
+        self.init_pos[2] + 0.7 -0.15 + (obj_z + 0.300 -(self.init_pos[2]+0.7-0.15))*t]
         orn = p.getQuaternionFromEuler([0,0,0])
         jointPoses = p.calculateInverseKinematics(self.id, self.ee_index, pos, orn, 
                                             self.arm_ll, self.arm_ul, self.joint_range , 
@@ -627,7 +652,7 @@ class PandaWithCustomGripper(RPL_Panda):
             p.setJointMotorControl2(self.id, 19, p.POSITION_CONTROL, grip_rot, force=30)
             p.setJointMotorControl2(self.id, 26, p.POSITION_CONTROL, grip_pris, force=30)
             p.setJointMotorControl2(self.id, 27, p.POSITION_CONTROL, grip_rot, force=30)
-            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=50)
+            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=40)
             pass
         
         if action == "Y_close" or action == "Y_open":
@@ -678,7 +703,7 @@ class PandaWithCustomGripper(RPL_Panda):
             p.setJointMotorControl2(self.id, 19, p.POSITION_CONTROL, grip_rot, force=30)
             p.setJointMotorControl2(self.id, 26, p.POSITION_CONTROL, grip_pris, force=30)
             p.setJointMotorControl2(self.id, 27, p.POSITION_CONTROL, grip_rot, force=30)
-            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=50)
+            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=40)
             pass
 
         if action == "Z_close" or action == "Z_open":
@@ -728,7 +753,7 @@ class PandaWithCustomGripper(RPL_Panda):
             p.setJointMotorControl2(self.id, 19, p.POSITION_CONTROL, grip_rot, force=30)
             p.setJointMotorControl2(self.id, 26, p.POSITION_CONTROL, grip_pris, force=30)
             p.setJointMotorControl2(self.id, 27, p.POSITION_CONTROL, grip_rot, force=30)
-            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=50)
+            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=40)
             pass
 
         if action == "H_up" or action == "H_down":
@@ -781,7 +806,7 @@ class PandaWithCustomGripper(RPL_Panda):
             p.setJointMotorControl2(self.id, 19, p.POSITION_CONTROL, grip_rot, force=30)
             p.setJointMotorControl2(self.id, 26, p.POSITION_CONTROL, grip_pris, force=30)
             p.setJointMotorControl2(self.id, 27, p.POSITION_CONTROL, grip_rot, force=30)
-            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=50)
+            p.setJointMotorControl2(self.id, 34, p.POSITION_CONTROL, grip_palm, force=40)
             pass
 
         

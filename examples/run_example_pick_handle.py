@@ -147,10 +147,19 @@ time.sleep(1.) # wait 1 sec for everything to load up
 # Configure debug visualizer options for texture rendering
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, 1)
 
-sign = 1
+sign_motor = 1
 leadscrew_dist = 35e-3
+
+def sign(x):
+    if x > 0:
+        return 1
+    elif x < 0:
+        return -1
+    else:
+        return 0
+    
 def calc_y (th_rad,x):
-    return x + sign * leadscrew_dist * np.sin(th_rad)
+    return x + sign_motor * leadscrew_dist * np.sin(th_rad)
 
 def read_gauge(finger,segment_length,numJoint_per_finger,poly_degree,x_pos):
 
@@ -239,29 +248,33 @@ def policy_input(finger_1,finger_2,finger_3,palm,wrist,motor_x,motor_y,motor_z,b
     motor_x_copy = motor_x[:]
     for motor in range(len(motor_x_copy)):
         motor_x_copy[motor] = reading_normalization(motor_x_copy[motor],x_range[0],x_range[1])
-        motor_x_copy[motor] = round(motor_x_copy[motor],3)
-    motor_x_states = [motor_x_copy[0],motor_X_change[0],motor_x_copy[1],motor_X_change[1],motor_x_copy[2],motor_X_change[2],motor_x_copy[3],motor_X_change[3],motor_x_copy[4],motor_X_change[4],motor_x_copy[5]]
+        # motor_x_copy[motor] = round(motor_x_copy[motor],3)
+    delta = [sign(motor_x_copy[1]-motor_x_copy[0]),sign(motor_x_copy[2]-motor_x_copy[1]),sign(motor_x_copy[3]-motor_x_copy[2]),sign(motor_x_copy[4]-motor_x_copy[3]),sign(motor_x_copy[5]-motor_x_copy[4])]
+    motor_x_states = [motor_x_copy[0],delta[0],motor_x_copy[1],delta[1],motor_x_copy[2],delta[2],motor_x_copy[3],delta[3],motor_x_copy[4],delta[4],motor_x_copy[5]]
 
     #generate motor y states (recent 6)
     motor_y_copy = motor_y[:]
     for motor in range(len(motor_y_copy)):
         motor_y_copy[motor] = reading_normalization(motor_y_copy[motor],y_range[0],y_range[1])
-        motor_y_copy[motor] = round(motor_y_copy[motor],3)
-    motor_y_states = [motor_y_copy[0],motor_Y_change[0],motor_y_copy[1],motor_Y_change[1],motor_y_copy[2],motor_Y_change[2],motor_y_copy[3],motor_Y_change[3],motor_y_copy[4],motor_Y_change[4],motor_y_copy[5]]
+        # motor_y_copy[motor] = round(motor_y_copy[motor],3)
+    delta = [sign(motor_y_copy[1]-motor_y_copy[0]),sign(motor_y_copy[2]-motor_y_copy[1]),sign(motor_y_copy[3]-motor_y_copy[2]),sign(motor_y_copy[4]-motor_y_copy[3]),sign(motor_y_copy[5]-motor_y_copy[4])]
+    motor_y_states = [motor_y_copy[0],delta[0],motor_y_copy[1],delta[1],motor_y_copy[2],delta[2],motor_y_copy[3],delta[3],motor_y_copy[4],delta[4],motor_y_copy[5]]
 
     #generate motor z states (recent 6)
     motor_z_copy = motor_z[:]
     for motor in range(len(motor_z_copy)):
         motor_z_copy[motor] = reading_normalization(motor_z_copy[motor],z_range[0],z_range[1])
-        motor_z_copy[motor] = round(motor_z_copy[motor],3)
-    motor_z_states = [motor_z_copy[0],motor_Z_change[0],motor_z_copy[1],motor_Z_change[1],motor_z_copy[2],motor_Z_change[2],motor_z_copy[3],motor_Z_change[3],motor_z_copy[4],motor_Z_change[4],motor_z_copy[5]]
+        # motor_z_copy[motor] = round(motor_z_copy[motor],3)
+    delta = [sign(motor_z_copy[1]-motor_z_copy[0]),sign(motor_z_copy[2]-motor_z_copy[1]),sign(motor_z_copy[3]-motor_z_copy[2]),sign(motor_z_copy[4]-motor_z_copy[3]),sign(motor_z_copy[5]-motor_z_copy[4])]
+    motor_z_states = [motor_z_copy[0],delta[0],motor_z_copy[1],delta[1],motor_z_copy[2],delta[2],motor_z_copy[3],delta[3],motor_z_copy[4],delta[4],motor_z_copy[5]]
 
     #generate base z states (recent 6)
     base_z_copy = base_z[:]
     for motor in range(len(base_z_copy)):
         base_z_copy[motor] = reading_normalization(base_z_copy[motor],base_range[0],base_range[1])
-        base_z_copy[motor] = round(base_z_copy[motor],3)
-    base_z_states = [base_z_copy[0],base_Z_change[0],base_z_copy[1],base_Z_change[1],base_z_copy[2],base_Z_change[2],base_z_copy[3],base_Z_change[3],base_z_copy[4],base_Z_change[4],base_z_copy[5]]
+        # base_z_copy[motor] = round(base_z_copy[motor],3)
+    delta = [sign(base_z_copy[1]-base_z_copy[0]),sign(base_z_copy[2]-base_z_copy[1]),sign(base_z_copy[3]-base_z_copy[2]),sign(base_z_copy[4]-base_z_copy[3]),sign(base_z_copy[5]-base_z_copy[4])]
+    base_z_states = [base_z_copy[0],delta[0],base_z_copy[1],delta[1],base_z_copy[2],delta[2],base_z_copy[3],delta[3],base_z_copy[4],delta[4],base_z_copy[5]]
 
     policy_input_vector = bending_gauge_1_normalized + bending_gauge_2_normalized + bending_gauge_3_normalized + palm_gauge_normalized + wrist_gauge_normalized + motor_x_states + motor_y_states + motor_z_states + base_z_states
     
@@ -277,40 +290,6 @@ def reading_normalization(value, min_value, max_value):
         normalized_value = (value - min_value) / (max_value - min_value) * 2 - 1
 
     return normalized_value
-
-def motor_state_change(action_name):
-    if action_name == "X_open" or action_name == "X_close":
-        if action_name == "X_open":
-            motor_X_change.append(+1)
-        else:
-            motor_X_change.append(-1)
-        motor_Y_change.append(0)
-        motor_Z_change.append(0)
-        base_Z_change.append(0)
-    elif action_name == "Y_open" or action_name == "Y_close":
-        if action_name == "Y_open":
-            motor_Y_change.append(+1)
-        else:
-            motor_Y_change.append(-1)
-        motor_X_change.append(0)
-        motor_Z_change.append(0)
-        base_Z_change.append(0)
-    elif action_name == "Z_open" or action_name == "Z_close":
-        if action_name == "Z_open":
-            motor_Z_change.append(+1)
-        else:
-            motor_Z_change.append(-1)
-        motor_X_change.append(0)
-        motor_Y_change.append(0)
-        base_Z_change.append(0)
-    elif action_name == "H_up" or action_name == "H_down":
-        if action_name == "H_up":
-            base_Z_change.append(+1)
-        else:
-            base_Z_change.append(-1)
-        motor_X_change.append(0)
-        motor_Y_change.append(0)
-        motor_Z_change.append(0)
 
 # robot move aside for camera to capture image
 p.enableJointForceTorqueSensor(rpl_panda_w_gripper.id,9,True)
@@ -432,15 +411,15 @@ object_orientation = p.getQuaternionFromEuler([0, 1.5708, 0])  # Specify the ori
 # Create an instance of the Object class to import the object
 mario = SDFObject(PATH_TO_obj, object_position, object_orientation)
 
-#banana
-PATH_TO_obj = OBJECT_PATH +\
-                    "/assets/google/Banana for Scale/model.sdf"
+# #banana
+# PATH_TO_obj = OBJECT_PATH +\
+#                     "/assets/google/Banana for Scale/model.sdf"
 
-object_position = [0.3, 0.2, 0+table_height_offset]  # Specify the position of the object in the world
-object_orientation = p.getQuaternionFromEuler([0, 0, 0])  # Specify the orientation of the object
+# object_position = [0.3, 0.2, 0+table_height_offset]  # Specify the position of the object in the world
+# object_orientation = p.getQuaternionFromEuler([0, 0, 0])  # Specify the orientation of the object
 
-# Create an instance of the Object class to import the object
-banana = SDFObject(PATH_TO_obj, object_position, object_orientation)
+# # Create an instance of the Object class to import the object
+# banana = SDFObject(PATH_TO_obj, object_position, object_orientation)
 
 # #meshes
 # PATH_TO_obj = OBJECT_PATH +\
@@ -502,8 +481,8 @@ print(obj_y)
 print(obj_z)
 
 # visualize the full point cloud and part point cloud
-o3d.visualization.draw_geometries([pcd])
-o3d.visualization.draw_geometries([pcd_mask])
+# o3d.visualization.draw_geometries([pcd])
+# o3d.visualization.draw_geometries([pcd_mask])
 
 # obj_x = 0.385878
 # obj_y = -0.114797
@@ -515,7 +494,7 @@ o3d.visualization.draw_geometries([pcd_mask])
 # obj_y = -0.3
 obj_z = 0.701805
 t = 0
-N_UP_STEPS = STEP_FREQUENCY*5
+N_UP_STEPS = STEP_FREQUENCY*2
 for i in range (N_UP_STEPS):
     for j in range(N*3):
         joint_state = p.getJointState(rpl_panda_w_gripper.id, segment_indices_row[j])
@@ -545,6 +524,41 @@ for i in range (N_UP_STEPS):
     rpl_panda_w_gripper.move_to_above(t,obj_x,obj_y,obj_z)
     print(rpl_panda_w_gripper.get_base_state())
     # rpl_panda_w_gripper.move_to_above(t,obj_x,obj_y,table_height_offset+0.01)    
+
+t = 0
+N_UP_STEPS = STEP_FREQUENCY*3
+for i in range (N_UP_STEPS):
+    for j in range(N*3):
+        joint_state = p.getJointState(rpl_panda_w_gripper.id, segment_indices_row[j])
+        joint_position = joint_state[0]
+        joint_velocity = joint_state[1]
+        print("joint position: ",joint_position)
+        # print("joint index: " + str(joint_index))
+        # print("stiffness: " + str(stiffness))
+        # Calculate the spring force based on the joint position and stiffness
+        spring_torque = k[j] * (0 - joint_position)
+        if spring_torque > 0:
+            spring_torque -= abs(damping_coefficient*joint_velocity)
+        else:
+            spring_torque += abs(damping_coefficient*joint_velocity)
+        # print(spring_torque)
+        # Apply the torque to the joint
+        p.setJointMotorControl2(rpl_panda_w_gripper.id, segment_indices_row[j], p.TORQUE_CONTROL,force=spring_torque)
+
+    p.stepSimulation() 
+    # time.sleep is for us to observe.
+    # If no GUI is used, this can be sped up. 
+    time.sleep(1./STEP_FREQUENCY) 
+
+    t = t + 1./N_UP_STEPS
+
+    rpl_panda_w_gripper.step()
+    rpl_panda_w_gripper.move_to_object(t,obj_x,obj_y,obj_z)
+    print(rpl_panda_w_gripper.get_base_state())
+    # rpl_panda_w_gripper.move_to_above(t,obj_x,obj_y,table_height_offset+0.01)  
+    
+
+time.sleep(3)
     
 
 time.sleep(3)
@@ -627,39 +641,26 @@ for step in range (N_UP_STEPS):
     # axialForces = appliedForcesOrTorques[2]
     wrist_gauge.append(-axialForces)
 
-    # # print the palm force (panda joint 8 fixed joint)
-    # jointState = p.getJointState(rpl_panda_w_gripper.id,34)
-    # # Extract the applied forces or torques
-    # appliedForcesOrTorques = jointState[2]
-    # # print("The palm force is: " + str(appliedForcesOrTorques))
-    # # Extract the axial forces (along the joint's axis)
-    # axialForces = appliedForcesOrTorques[2]
-    # palm_gauge.append(abs(axialForces))
+    # print the palm force (panda joint 8 fixed joint)
+    jointState = p.getJointState(rpl_panda_w_gripper.id,34)
+    # Extract the applied forces or torques
+    appliedForcesOrTorques = jointState[2]
+    # print("The palm force is: " + str(appliedForcesOrTorques))
+    # Extract the axial forces (along the joint's axis)
+    axialForces = appliedForcesOrTorques[2]
+    palm_gauge.append(axialForces)
 
-    # # Get the contact points in the simulation
-    contact_points = p.getContactPoints()
-    # for contact in contact_points:
-    #     print("the contact i is: ")
-    #     print(contact)
-    #     print("the robot id is: ")
-    #     print(rpl_panda_w_gripper.id)
-    # # Find the contact point associated with the robot and the specified link index
-    link_contact_points = [contact for contact in contact_points if contact[2] == rpl_panda_w_gripper.id and contact[4] == 34]
+    # # # Get the contact points in the simulation
+    # contact_points = p.getContactPoints()
+    # # for contact in contact_points:
+    # #     print("the contact i is: ")
+    # #     print(contact)
+    # #     print("the robot id is: ")
+    # #     print(rpl_panda_w_gripper.id)
+    # # # Find the contact point associated with the robot and the specified link index
+    # link_contact_points = [contact for contact in contact_points if contact[2] == rpl_panda_w_gripper.id and contact[4] == 34]
 
-    # # Calculate the total contact force on the point of interest
-    # total_contact_force = [0, 0, 0]
-    # for contact in link_contact_points:
-    #     contact_normal = contact[7]  # Normal vector of the contact
-    #     contact_force = contact[9]  # Total force applied at the contact point
-    #     total_contact_force[0] += contact_force * contact_normal[0]
-    #     total_contact_force[1] += contact_force * contact_normal[1]
-    #     total_contact_force[2] += contact_force * contact_normal[2]
-    palm_force = 0
-    for contact in link_contact_points:
-        palm_force += contact[-2]
-    print("the total contact force is: " + str(palm_force))
-    palm_gauge.append(abs(palm_force))
-    # palm_gauge.append("the total contact force is: " + str(palm_force))
+
 
     # assert p.getJointState(rpl_panda_w_gripper.id,10) == p.getJointState(rpl_panda_w_gripper.id,18) == p.getJointState(rpl_panda_w_gripper.id,26), "The gripper prismatic joints are not equal!"
     X_state = (p.getJointState(rpl_panda_w_gripper.id,10)[0] + p.getJointState(rpl_panda_w_gripper.id,18)[0] + p.getJointState(rpl_panda_w_gripper.id,26)[0])/3
@@ -705,7 +706,7 @@ for step in range (N_UP_STEPS):
         policy_input_vector = policy_input(bending_gauge_1,bending_gauge_2,bending_gauge_3,palm_gauge,wrist_gauge,list(motor_state_X),list(motor_state_Y),list(motor_state_Z),list(base_state_Z))
         print(policy_input_vector)
         action_number = policy.run_policy(np.array(policy_input_vector))
-        motor_state_change(action_names[action_number])
+        # motor_state_change(action_names[action_number])
         # print("motor_X_change: ")
         # print(motor_X_change)
         # print("motor_Y_change: ")
@@ -715,7 +716,7 @@ for step in range (N_UP_STEPS):
         # print("base_z_change: ")
         # print(base_Z_change)
         policy_t = 0
-        policy_steps = 500
+        policy_steps = 100
         for policy_step in range(policy_steps):
             # for j in range(N*3):
                 # # Apply the torque to the joint

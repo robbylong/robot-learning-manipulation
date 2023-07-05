@@ -69,6 +69,8 @@ class ShowPartCorrespondence():
         ax[0].imshow(quer_img)
         ax[1].imshow(corr_img)
         plt.show()
+        
+        return corr_img
 
     def run_result(self,origin_rgb,SUPPORT_DIR):
         with torch.no_grad():
@@ -78,8 +80,16 @@ class ShowPartCorrespondence():
             img1_path = f"{SUPPORT_DIR}/prototype.png"
             aff1_path = f"{SUPPORT_DIR}/affordance.npy"
             rgb_a = self.load_rgb(img1_path)
+            print("the rgb_a shape is: ")
+            print(rgb_a)
+            print(rgb_a.shape)
             parts = np.load(aff1_path, allow_pickle=True).item()['masks']
+            print("The parts is:")
+            print(parts)
             affordances = [None for _ in parts]
+            print("The affordances is: ")
+            print(affordances)
+            print(len(affordances))
             rgb_b = origin_rgb
             # rgb_b = load_rgb(TARGET_IMAGE_PATH)
             # print(rgb_b)
@@ -93,4 +103,5 @@ class ShowPartCorrespondence():
             parts_out, aff_out = model.find_correspondences()
             print("found it!")
             ## Display correspondence
-            self.viz_correspondence(rgb_a, rgb_b, parts, parts_out)
+            corr_img = self.viz_correspondence(rgb_a, rgb_b, parts, parts_out)
+        return corr_img
