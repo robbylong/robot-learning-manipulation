@@ -66,7 +66,7 @@ To run, simply execute `python3 examples/run_example_pick_handle.py`. This will 
 By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` parameter to simulate it.
 
 ### Load robot and table objects	
-![Robots](doc/img/robot_tableObjects.png)
+![Robots](doc/img/robot_tableObjects_v2.png)
 Close the window tab to proceed
 
 ### Input semantic knowledge
@@ -75,9 +75,9 @@ Close the window tab to proceed
 | ![Original Image](doc/img/prototype.png) | ![Annotated Image](doc/img/annotation.png) |
 
 ### Transfer the semantic knowledge to the target scene
-![Robots](doc/img/find_part_correspondence.png)
+![Robots](doc/img/find_part_correspondence_v2.png)
 Close the window tab to proceed
 
 ### The caging gripper proceeds to grasp the target (with reinforcement policy control)
-![Robots](doc/img/grasping.png)
+![Robots](doc/img/grasping_v2.png)
 
