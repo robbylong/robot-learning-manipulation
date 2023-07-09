@@ -5,9 +5,9 @@ This repository contains code for AffCorrs-gripper model, an autonomous robotic 
 <table>
   <tr>
     <td style="vertical-align: top;">
-      <img src="doc/img/basketball.png" alt="Original Image" height="300">
+      <img src="doc/img/basketball.png" alt="Original Image" height="150">
       <br>
-      <img src="doc/img/annotate_basketball.png" alt="Annotated Image" height="300">
+      <img src="doc/img/annotate_basketball.png" alt="Annotated Image" height="150">
     </td>
     <td style="vertical-align: top;">
       <img src="doc/gif/sim_graspSphere.gif" alt="Grasp GIF" height="300">
