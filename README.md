@@ -5,7 +5,7 @@ This repository contains code for AffCorrs-gripper model, an autonomous robotic 
 <table>
   <tr>
     <th>one visual demonstration to robot (where to grasp)</th>
-    <th>robot locate target and grasp in a novel scene</th>
+    <th>robot locate relevant target and grasp in a novel scene</th>
   </tr>
   <tr>
     <td style="vertical-align: top;">
