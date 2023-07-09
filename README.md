@@ -2,10 +2,18 @@
 
 This repository contains code for AffCorrs-gripper model, an autonomous robotic manipulation system integrating a novel visual semantic model in paper "One-Shot Transfer of Affordance Regions? AffCorrs!" and a novel robotic gripper in paper "A  Caging  Inspired  Gripper  using  Flexible Fingers  and  a  Movable Palm" along with reinforcement learning.
 
-| robot learning where to grasp from visual demonstration |                |
-|:-----------------------------------------------------:|:--------------:|
-| ![Original Image](doc/img/basketball.png)               | ![Annotated Image](doc/img/annotate_basketball.png) |
-|                                                       | ![Grasp GIF](doc/gif/sim_graspSphere.gif)            |
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <img src="doc/img/basketball.png" alt="Original Image" height="300">
+      <br>
+      <img src="doc/img/annotate_basketball.png" alt="Annotated Image" height="300">
+    </td>
+    <td style="vertical-align: top;">
+      <img src="doc/gif/sim_graspSphere.gif" alt="Grasp GIF" height="300">
+    </td>
+  </tr>
+</table>
 
 
 ## Setup
