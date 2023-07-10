@@ -26,7 +26,7 @@ This repository contains code for AffCorrs-gripper model, an autonomous robotic 
 The following code installs pybullet and clones this repository along with the submodule links needed for the RPL robots in this repo. The setup has been tested on ubuntu 20.04 and python 3.8.
 
 ```bash
-git clone --recurse-submodules https://github.com/RPL-CS-UCL/RPL-affcorrs-gripper.git
+git clone --recurse-submodules https://github.com/robbylong/robot-learning-manipulation.git
 cd RPL-affcorrs-gripper
 pip3 install -e .
 ```
