@@ -4,8 +4,8 @@ This repository contains code for AffCorrs-gripper model, an autonomous robotic 
 
 <table>
   <tr>
-    <th>One visual demonstration to robot (where to grasp)</th>
-    <th>Robot locate relevant target and grasp autonomously in a novel scene</th>
+    <th>one visual demonstration to robot (where to grasp)</th>
+    <th>robot locate target and grasp in a novel scene</th>
   </tr>
   <tr>
     <td style="vertical-align: top;">
@@ -26,7 +26,7 @@ This repository contains code for AffCorrs-gripper model, an autonomous robotic 
 The following code installs pybullet and clones this repository along with the submodule links needed for the RPL robots in this repo. The setup has been tested on ubuntu 20.04 and python 3.8.
 
 ```bash
-git clone --recurse-submodules https://github.com/robbylong/robot-learning-manipulation.git
+git clone --recurse-submodules https://github.com/RPL-CS-UCL/RPL-affcorrs-gripper.git
 cd RPL-affcorrs-gripper
 pip3 install -e .
 ```
@@ -53,6 +53,26 @@ pip3 install pydensecrf torch torchvision timm cv2 scikit-image\
 faiss pytorch_metric_learning fast_pytorch_kmeans
 ```
 
+If encounter bug for installing cv2, try:
+```
+pip3 install opencv-python
+```
+upgrade pip if needed:
+```
+pip3 install --upgrade pip
+```
+
+Install open3d for pybullet visualization:
+```
+pip3 install open3d
+pip3 install dill
+```
+
+if encountering bugs from using module faiss, try:
+```
+sudo apt-get install libopenblas-dev
+```
+
 Verify installation runs without error:
 ```bash
 cd /
@@ -66,7 +86,7 @@ To run, simply execute `python3 examples/run_example_pick_handle.py`. This will 
 By default, the camera on the RPL Panda is disabled. Modify the `sim_camera` parameter to simulate it.
 
 ### Load robot and table objects	
-![Robots](doc/img/robot_tableObjects_v2.png)
+![Robots](doc/img/robot_tableObjects.png)
 Close the window tab to proceed
 
 ### Input semantic knowledge
@@ -75,9 +95,9 @@ Close the window tab to proceed
 | ![Original Image](doc/img/prototype.png) | ![Annotated Image](doc/img/annotation.png) |
 
 ### Transfer the semantic knowledge to the target scene
-![Robots](doc/img/find_part_correspondence_v2.png)
+![Robots](doc/img/find_part_correspondence.png)
 Close the window tab to proceed
 
 ### The caging gripper proceeds to grasp the target (with reinforcement policy control)
-![Robots](doc/img/grasping_v2.png)
+![Robots](doc/img/grasping.png)
 
